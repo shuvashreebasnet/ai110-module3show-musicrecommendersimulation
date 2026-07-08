@@ -17,17 +17,22 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+Real-world streaming platforms like Spotify and Youtube use both collaborative and content-based filtering to recommend content to users. 
 
-Some prompts to answer:
+Collaborative filtering is done by assessing engagement patterns. For Spotify, this would be patterns in what users are listening to. For YouTube, this would be patterns found in watch history.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+Content-based filtering organizes features of the platform's content to find what features are similar to the content users are engaging with. For Spotify, that would mean checking for similarity in song attributes like genre, mood, and energy. For YouTube, that would be video topics or visual/audio features.
 
-You can include a simple diagram or bullet list if helpful.
+This system will prioritize user preferences in genres, moods, and energy. 
+
+- Each `Song` in the system has a title, artist, genre, mood, and energy, tempo in beats per minute, valence, danceability, and acousticness.
+
+- `UserProfile` will store genre, mood, and energy preferences. Optionally, it will also store favorite artists.
+
+- The `Recommender` will compute a score of each song by calculating the linear falloff (1 - |x - p|) for each numerical, normalized feature on a 0 to 1 scale. The closer the feature is to 1, the better aligned the song is with the user preferences. 
+
+- The system will choose which songs to recommend mainly by genre, then mood, and energy. If the user inputs a specific artist they like, It will also recommend songs from that artist, even more so if the songs are aligned with the main recommending features.
+
 
 ---
 
