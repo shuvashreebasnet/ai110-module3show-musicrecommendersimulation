@@ -17,21 +17,28 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
+1. Research: Real-World Streaming Platforms
 Real-world streaming platforms like Spotify and Youtube use both collaborative and content-based filtering to recommend content to users. 
 
 Collaborative filtering is done by assessing engagement patterns. For Spotify, this would be patterns in what users are listening to. For YouTube, this would be patterns found in watch history.
 
 Content-based filtering organizes features of the platform's content to find what features are similar to the content users are engaging with. For Spotify, that would mean checking for similarity in song attributes like genre, mood, and energy. For YouTube, that would be video topics or visual/audio features.
 
+2. This System
+
 This system will prioritize user preferences in genres, moods, and energy. 
 
 - Each `Song` in the system has a title, artist, genre, mood, and energy, tempo in beats per minute, valence, danceability, and acousticness.
 
-- `UserProfile` will store genre, mood, and energy preferences. Optionally, it will also store favorite artists.
+- `UserProfile` will store genre, mood, and energy. 
 
-- The `Recommender` will compute a score of each song by calculating the linear falloff (1 - |x - p|) for each numerical, normalized feature on a 0 to 1 scale. The closer the feature is to 1, the better aligned the song is with the user preferences. 
+- The `Recommender` will compute the sum of points earned based on each matching or closely-aligned attribute in user preferences. If genre is an exact match, 3 points will be added. If mood is an exact match, 2 points will be added. The numeric value in the energy attriute will be rewarded more the smaller the difference is between song and user-selected energy. Closeness in energy (calculated by 1 - |difference|) can earn up to 2 points (closeness*2). Therefore, the total possible points in a song score is 7.
 
-- The system will choose which songs to recommend mainly by genre, then mood, and energy. If the user inputs a specific artist they like, It will also recommend songs from that artist, even more so if the songs are aligned with the main recommending features.
+- The system will choose which songs to recommend based on user preferences in genre, mood, and energy. Since genre is more specific, it has the highest weight of 3 points. Mood is secondary with a weight of 2 points. Energy is rewarded up to 2 points based on closeness to user-selected energy preference.
+
+- Note for Bias: The system may prioritize songs that match genre input and do not match mood and energy, much more than songs that match mood and energy preferences but not the genre input. As a result, the system may ignore songs that match the less-weighted user preferences, even if the user prioritizes those preferences more than genre. In addition, the system checks for an exact match in genre, so it may ignore songs of similar genres like "Rock" and "Alternative Rock".
+
+*Available but unused attributes to add in Model Card: tempo_bpm, valence, danceability.
 
 
 ---
