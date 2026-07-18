@@ -74,7 +74,6 @@ Also as intended, "Rooftop Lights" keeps showing up for happy, high energy users
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
 - multiple genres and moods: users can select multiple genres they like instead of just one
 - ranking options: ranking recommended songs based on genre, mood, and energy closeness, changing the weight for each feature as needed
 - adding artist and acousticness as an attribute: many users like to listen to songs by certain artists or acoustic songs, adding that as an option offers more diversity in recommendations
