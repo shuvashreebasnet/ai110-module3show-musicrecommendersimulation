@@ -29,9 +29,6 @@ This system will prioritize user preferences in genres, moods, and energy.
 
 - Note for Bias: The system may prioritize songs that match genre input and do not match mood and energy, much more than songs that match mood and energy preferences but not the genre input. As a result, the system may ignore songs that match the less-weighted user preferences, even if the user prioritizes those preferences more than genre. In addition, the system checks for an exact match in genre, so it may ignore songs of similar genres like "Rock" and "Alternative Rock".
 
-*Available but unused attributes to add in Model Card: tempo_bpm, valence, danceability.
-
-
 ---
 
 ## Getting Started
