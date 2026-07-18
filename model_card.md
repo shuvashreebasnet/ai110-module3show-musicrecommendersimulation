@@ -63,27 +63,29 @@ Prompts:
 
 Where the system struggles or behaves unfairly. 
 
-Prompts:  
+While experimenting (doubling weight of energy and halving weight of genre), one weakness I discovered was that low-energy/calm users were underrepresented. Becuase the quietest song in the dataset has an energy level of 0.22, a calm/sleep/ambient/study user cannot get a near-perfect match like a high-energy user can. Since energy is the dominant factor with 4 points, the entire recommendation quality for users who do not prioritize energy is not as good of a match compared to those who do.
 
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+Another issue is that the exact match check for genre penalizes users whose genre preferences are near the genres of certain songs. For instance, if a user likes pop, the recommender will skip over "Paper Airplanes" in which the genre is dream pop because it is not an exact match. This makes the recommender inflexible. 
 
 ---
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
+How I checked whether the recommender behaved as expected (after changing the weights back to genre: 3pts, mood: 2pts, energy: <=2 pts).
 
-Prompts:  
+- I tested the following user profiles:
+The Metal Romantic vs the Chill Guy, and the Happy Pop vs High-Energy Classical Lover
+- What I looked for in the recommendations:  
+For the Metal Romantic, I looked for metal genres and romantic moods. I was expecting moderate energy levels in some songs.
+For the Chill Guy, I looked for ambient genre matches and chill mood matches. 
+-  I was surprised to see "Paper Airplanes" ranked 3rd (higher than expected)because it is a dream pop song. While the recommender does not consider how dreamy and romantic can be similar moods, it manages to recommend the song because of energy closeness.
+-  Similarly when looking at recommendations for the Chill Guy, I was surprised to see "Winter Nocturne" (classical, melancholy) and "Coffee Shop Stories" (jazz, relaxed) because although relaxed is not the user's mood preference, it is still similar to chill.
 
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
+For Happy Pop vs High-Energy Classical Lover, they both preferred high-energy low acoustic songs, which was expected based on their inputs.
 
-No need for numeric metrics unless you created some.
+Overall, the recommender prioritizes genre matches, then mood, then energy as expected. While I was concerned that the recommender would fail to suggest songs of similar genres/moods, it seems that it is able to do so based on energy closeness alone.
+
+Also as intended, "Rooftop Lights" keeps showing up for happy, high energy users because it matches the happy mood and is close to the high-energy preference despite different genre preferences. 
 
 ---
 

@@ -12,15 +12,23 @@ You will implement the functions in recommender.py:
 from recommender import load_songs, recommend_songs
 
 
-def main() -> None:
-    songs = load_songs("data/songs.csv") 
+# Edge-case profiles used to stress-test the recommender.
+PROFILES = [
+    # Happy Pop
+    {"genre": "pop", "mood": "happy", "energy": 0.8},
+    # The Metal Romantic - Edge case 1. Impossible combo: no song is both metal and romantic.
+    {"genre": "metal", "mood": "romantic", "energy": 0.5},
+    # High-Energy Classical Lover - Edge case 2. Genre exists, but never with that mood (classical is only melancholy).
+    {"genre": "classical", "mood": "happy", "energy": 0.9},
+    # The Chill Guy - Edge case 3. Extreme energy boundary (energy = 0.0).
+    {"genre": "ambient", "mood": "chill", "energy": 0.0},
+]
 
-    # Starter example profile
-    user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.8}
 
+def run_profile(user_prefs: dict, songs: list) -> None:
+    """Run the recommender for one profile and print its top recommendations."""
     recommendations = recommend_songs(user_prefs, songs, k=5)
 
-    print(f"Loaded songs: {len(songs)}")
     print(
         f"Your taste: genre = {user_prefs['genre']} / mood = {user_prefs['mood']} "
         f"/ energy = {user_prefs['energy']}"
@@ -38,6 +46,15 @@ def main() -> None:
             print(f"     - {reason}")
 
     print()
+
+
+def main() -> None:
+    songs = load_songs("data/songs.csv")
+    print(f"Loaded songs: {len(songs)}")
+
+    for profile in PROFILES:
+        print("\n" + "#" * 48)
+        run_profile(profile, songs)
 
 
 if __name__ == "__main__":

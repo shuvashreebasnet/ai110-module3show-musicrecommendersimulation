@@ -2,16 +2,7 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+This music recommender system considers user preferences in music genre, mood, and energy levels to recommend the top 5 songs in the dataset that align the most with these preferences.
 
 ---
 
@@ -79,20 +70,10 @@ You can add more tests in `tests/test_recommender.py`.
 ---
 
 ## Sample Recommendation Output
-
-Paste a sample of your recommender's output here as a text block so a reader can see what it produces:
-
-```
-# e.g.:
-# User profile: genre=indie, mood=chill, energy=low
-# Recommendations:
-#   1. ...
-#   2. ...
-#   3. ...
-```
+Profile: Happy Pop
 ```python
 Loaded songs: 19
-Your taste: pop / happy / energy 0.8
+Your taste: genre = pop / mood = happy / energy = 0.8
 
 ================================================
 TOP RECOMMENDATIONS
@@ -126,8 +107,126 @@ TOP RECOMMENDATIONS
    Score: 1.90 / 7.00
    Why:
      - Energy is 0.95 close to your target (1.90 pts)
-
 ```
+The Happy Pop profile prefers high-energy, low acoustic songs.
+
+Checking Edge Cases:
+- #1: Profile: The Metal Romantic, no song matches both
+```python
+################################################
+Your taste: genre = metal / mood = romantic / energy = 0.5
+
+================================================
+TOP RECOMMENDATIONS
+================================================
+
+1. Iron Verdict - Ashfall
+   Score: 4.04 / 7.00
+   Why:
+     - Genre matches (metal)
+     - Energy is 0.52 close to your target (1.04 pts)
+
+2. Velvet Hours - Mara Skye
+   Score: 3.96 / 7.00
+   Why:
+     - Mood matches (romantic)
+     - Energy is 0.98 close to your target (1.96 pts)
+
+3. Paper Airplanes - Cloudline
+   Score: 1.96 / 7.00
+   Why:
+     - Energy is 0.98 close to your target (1.96 pts)
+
+4. Island Time - Sun Cadence
+   Score: 1.84 / 7.00
+   Why:
+     - Energy is 0.92 close to your target (1.84 pts)
+
+5. Midnight Coding - LoRoom
+   Score: 1.84 / 7.00
+   Why:
+     - Energy is 0.92 close to your target (1.84 pts)
+```
+"Iron Verdict" wins based on the genre alone, barely above "Velvet Hours" which matches the mood preference. Overall, the recommedner degrades to genre and energy as intended. For this profile, there is no consistent pattern. There are some moderate-energy and acoustic songs, and some high-energy low acoustic songs.
+
+#2: Profile: High-Energy Classical Lover, genre exists, but none with the mood 
+```python
+################################################
+Your taste: genre = classical / mood = happy / energy = 0.9
+
+================================================
+TOP RECOMMENDATIONS
+================================================
+
+1. Sunrise City - Neon Echo
+   Score: 3.84 / 7.00
+   Why:
+     - Mood matches (happy)
+     - Energy is 0.92 close to your target (1.84 pts)
+
+2. Rooftop Lights - Indigo Parade
+   Score: 3.72 / 7.00
+   Why:
+     - Mood matches (happy)
+     - Energy is 0.86 close to your target (1.72 pts)
+
+3. Winter Nocturne - Elise Moreau
+   Score: 3.64 / 7.00
+   Why:
+     - Genre matches (classical)
+     - Energy is 0.32 close to your target (0.64 pts)
+
+4. Storm Runner - Voltline
+   Score: 1.98 / 7.00
+   Why:
+     - Energy is 0.99 close to your target (1.98 pts)
+
+5. Gym Hero - Max Pulse
+   Score: 1.94 / 7.00
+   Why:
+     - Energy is 0.97 close to your target (1.94 pts)
+```
+The only classical song "Winter Nocturne" ranks 3rd, below the two happy pop songs. In this case, the recommender ranked the songs matching mood and energy higher than the genre match. This profile generally prefers high energy, low-acoustic songs.
+
+#3: Profile: The Chill Guy, extreme energy boundaries
+```python
+################################################
+Your taste: genre = ambient / mood = chill / energy = 0.0
+
+================================================
+TOP RECOMMENDATIONS
+================================================
+
+1. Spacewalk Thoughts - Orbit Bloom
+   Score: 6.44 / 7.00
+   Why:
+     - Genre matches (ambient)
+     - Mood matches (chill)
+     - Energy is 0.72 close to your target (1.44 pts)
+
+2. Library Rain - Paper Lanterns
+   Score: 3.30 / 7.00
+   Why:
+     - Mood matches (chill)
+     - Energy is 0.65 close to your target (1.30 pts)
+
+3. Midnight Coding - LoRoom
+   Score: 3.16 / 7.00
+   Why:
+     - Mood matches (chill)
+     - Energy is 0.58 close to your target (1.16 pts)
+
+4. Winter Nocturne - Elise Moreau
+   Score: 1.56 / 7.00
+   Why:
+     - Energy is 0.78 close to your target (1.56 pts)
+
+5. Coffee Shop Stories - Slow Stereo
+   Score: 1.26 / 7.00
+   Why:
+     - Energy is 0.63 close to your target (1.26 pts)
+```
+"SpaceWalk Thoughts" ranks highest because of the genre and mood match, showing energy is valued less as intended. This ambient, chill profile prefers low energy guitars.
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
@@ -135,38 +234,26 @@ TOP RECOMMENDATIONS
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+- When I halved the weight on genre and doubled the weight on energy for the first sample (genre = pop / mood = happy / energy = 0.8), "Rooftop Lights" jumped to #2 because it matched in energy and mood, while "Gym Hero" dropped to #3 despite matching genre. As a result, it changed the recommendations slightly. Whether it made the recommendations more accurate depends on the user's priorities in genre and energy.
 
 ---
 
 ## Limitations and Risks
-
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
-
+- might favor high-energy genres and moods (e.g. pop, happy)
+- small dataset (19 songs)
+- values genre matches the most
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
+I learned real-world recommender systems use collaborative-based filtering (e.g. patterns in listening history) and content-based filtering (e.g. song attributes user engages with).
 
+I also learned bias can show up in small datasets that lack diversity and enough data for adaptive decisions. To resolve this, adding more songs with different attribute values in genre, mood and others will give more representation. As a result, recommending will be more aligned with user preferences. 
+
+AI helped my process by identifying edge cases and potential biases in my recommendation algorithm. It also helped in adding more songs to the dataset and figuring out algorithm options for recommending songs. I needed to double check its suggestions when it came to implementation. 
+
+more on:
 [**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
 
 
 
