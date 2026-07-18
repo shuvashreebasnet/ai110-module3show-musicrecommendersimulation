@@ -225,11 +225,9 @@ TOP RECOMMENDATIONS
 ```
 "SpaceWalk Thoughts" ranks highest because of the genre and mood match, showing energy is valued less as intended. This ambient, chill profile prefers low energy guitars.
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
-
 ---
 
-## Experiments You Tried
+## Experiments I Tried
 
 - When I halved the weight on genre and doubled the weight on energy for the first sample (genre = pop / mood = happy / energy = 0.8), "Rooftop Lights" jumped to #2 because it matched in energy and mood, while "Gym Hero" dropped to #3 despite matching genre. As a result, it changed the recommendations slightly. Whether it made the recommendations more accurate depends on the user's priorities in genre and energy.
 
@@ -247,7 +245,7 @@ I learned real-world recommender systems use collaborative-based filtering (e.g.
 
 I also learned bias can show up in small datasets that lack diversity and enough data for adaptive decisions. To resolve this, adding more songs with different attribute values in genre, mood and others will give more representation. As a result, recommending will be more aligned with user preferences. 
 
-AI helped my process by identifying edge cases and potential biases in my recommendation algorithm. It also helped in adding more songs to the dataset and figuring out algorithm options for recommending songs. I needed to double check its suggestions when it came to implementation. 
+AI helped my process by identifying edge cases and potential biases in my recommendation algorithm. It also helped in adding more songs to the dataset and figuring out algorithm options for recommending songs. I needed to double check its suggestions when it came to implementation and its definitions for certain terms.
 
 more on:
 [**Model Card**](model_card.md)
