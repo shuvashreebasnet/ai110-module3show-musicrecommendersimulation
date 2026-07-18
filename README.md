@@ -90,6 +90,44 @@ Paste a sample of your recommender's output here as a text block so a reader can
 #   2. ...
 #   3. ...
 ```
+```python
+Loaded songs: 19
+Your taste: pop / happy / energy 0.8
+
+================================================
+TOP RECOMMENDATIONS
+================================================
+
+1. Sunrise City - Neon Echo
+   Score: 6.96 / 7.00
+   Why:
+     - Genre matches (pop)
+     - Mood matches (happy)
+     - Energy is 0.98 close to your target (1.96 pts)
+
+2. Gym Hero - Max Pulse
+   Score: 4.74 / 7.00
+   Why:
+     - Genre matches (pop)
+     - Energy is 0.87 close to your target (1.74 pts)
+
+3. Rooftop Lights - Indigo Parade
+   Score: 3.92 / 7.00
+   Why:
+     - Mood matches (happy)
+     - Energy is 0.96 close to your target (1.92 pts)
+
+4. Concrete Rhythm - Blockprint
+   Score: 2.00 / 7.00
+   Why:
+     - Energy is 1.00 close to your target (2.00 pts)
+
+5. Night Drive Loop - Neon Echo
+   Score: 1.90 / 7.00
+   Why:
+     - Energy is 0.95 close to your target (1.90 pts)
+
+```
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or demo video link here -->
 
